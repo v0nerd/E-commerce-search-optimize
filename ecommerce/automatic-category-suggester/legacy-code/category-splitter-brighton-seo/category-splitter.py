@@ -335,7 +335,7 @@ my_headers = {
     'Accept': 'application/json',
     'Authorization': 'Bearer ' + kwe_key
 }
-response = requests.get('https://api.keywordseverywhere.com/v1/account/credits', headers=my_headers)
+response = requests.get('https://api.keywordseverywhere.com/v1/account/credits', headers=my_headers, timeout=60)
 if response.status_code == 200:
     creds_available = response.content.decode('utf-8')
     creds_available = creds_available.split()
@@ -377,7 +377,7 @@ while ngram_loop_count != loops:
         'Authorization': 'Bearer ' + kwe_key
     }
     response = requests.post(
-        'https://api.keywordseverywhere.com/v1/get_keyword_data', data=my_data, headers=my_headers)
+        'https://api.keywordseverywhere.com/v1/get_keyword_data', data=my_data, headers=my_headers, timeout=60)
     try:
         keywords_data = response.json()['data']
     except KeyError:

@@ -73,7 +73,7 @@ if submitted:
         'num': num_pages
     }
 
-    response = requests.get('https://api.valueserp.com/search', params)
+    response = requests.get('https://api.valueserp.com/search', params, timeout=60)
 
     response_data = json.loads(response.text)
     result = response_data.get('organic_results')

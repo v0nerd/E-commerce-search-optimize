@@ -41,7 +41,7 @@ with st.form(key='columns_in_form_2'):
 
 if submitted:
 
-    response = requests.get("http://www.ebay" + ccTLD + url + seed_keyword, headers=header)
+    response = requests.get("http://www.ebay" + ccTLD + url + seed_keyword, headers=header, timeout=60)
     soup = BeautifulSoup(response.text, "html.parser")
     for related in soup.select(css):
         result_str = related.get_text(separator=' ')
@@ -54,7 +54,7 @@ if submitted:
     # second loop
     st.write("Searching eBay for Related keywords")
     for kw in stqdm(related_search_kws):
-        response = requests.get("http://www.ebay" + ccTLD + url + kw, headers=header)
+        response = requests.get("http://www.ebay" + ccTLD + url + kw, headers=header, timeout=60)
         soup_lv2 = BeautifulSoup(response.text, "html.parser")  # Create a new soup object for each iteration
 
         for lv2_kw in soup_lv2.select(css):  # Use the new soup object
