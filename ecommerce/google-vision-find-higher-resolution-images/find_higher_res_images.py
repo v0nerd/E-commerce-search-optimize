@@ -188,7 +188,7 @@ def fetch_image_with_selenium(url):
             image_bytes = base64.b64decode(base64_encoded_data)
         else:
             # Fetch image normally if it's not a data URL
-            image_response = requests.get(image_url, stream=True)
+            image_response = requests.get(image_url, stream=True, timeout=60)
             image_bytes = image_response.raw.read()
 
         # Convert bytes to PIL Image to get dimensions

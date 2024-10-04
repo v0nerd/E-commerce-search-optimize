@@ -43,7 +43,7 @@ def get_unique_urls(domain):
         "showNumPages": "true"
     }
 
-    response = requests.get(base_url, params=params)
+    response = requests.get(base_url, params=params, timeout=60)
     if response.status_code != 200:
         st.error(f"Error: Unable to fetch data. Status code: {response.status_code}")
         return []
@@ -67,7 +67,7 @@ def get_unique_urls(domain):
         params.pop("showNumPages", None)
 
         try:
-            response = requests.get(base_url, params=params)
+            response = requests.get(base_url, params=params, timeout=60)
             response.raise_for_status()
             data = response.json()
 
@@ -211,7 +211,7 @@ def fetch_robots_txt_data(domain):
         "sort": "timestamp"
     }
 
-    response = requests.get(base_url, params=params)
+    response = requests.get(base_url, params=params, timeout=60)
     if response.status_code != 200:
         st.error(f"Error: Unable to fetch robots.txt data. Status code: {response.status_code}")
         return []
@@ -455,7 +455,7 @@ if submit_button:
 
 def fetch_robots_txt_content(domain, timestamp):
     url = f"https://web.archive.org/web/{timestamp}id_/{domain}/robots.txt"
-    response = requests.get(url)
+    response = requests.get(url, timeout=60)
     if response.status_code == 200:
         return response.text
     else:

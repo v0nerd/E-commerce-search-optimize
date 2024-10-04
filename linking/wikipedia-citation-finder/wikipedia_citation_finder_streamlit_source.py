@@ -112,7 +112,7 @@ def get_wikipedia_urls(keyword):
         "srsearch": keyword,
         "format": "json"
     }
-    response = requests.get(api_url, params=params)
+    response = requests.get(api_url, params=params, timeout=60)
     data = response.json()
     urls = [f"https://en.wikipedia.org/wiki/{item['title'].replace(' ', '_')}" for item in data["query"]["search"]]
     return urls
@@ -136,7 +136,7 @@ def search_citations_needed(urls):
 
 
 def find_citations(url):
-    response = requests.get(url)
+    response = requests.get(url, timeout=60)
     soup = BeautifulSoup(response.text, 'html.parser')
     citations = soup.find_all(class_="noprint Inline-Template Template-Fact")
     return [extract_sentence(citation.find_parent('p').text if citation.find_parent('p') else '', citation.text) for

@@ -46,7 +46,7 @@ for i in search_terms:
         ("apikey", zenserp_key),
     )
 
-    response = requests.get('https://app.zenserp.com/api/v2/search', headers=headers, params=params);
+    response = requests.get('https://app.zenserp.com/api/v2/search', headers=headers, params=params, timeout=60);
 
     # Get JSON Data
     d = response.json()
